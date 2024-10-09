@@ -1,0 +1,17 @@
+import cv2
+img = cv2.imread("img/nick_memasik.png")
+print(img)
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+cv2.putText(gray,"Varvara",(50,50),1,1.5,(0,0,0),2)
+hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+hls = cv2.cvtColor(img,cv2.COLOR_BGR2HLS)
+rgb = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+
+cv2.imshow("hsv",hsv)
+cv2.waitKey(1000)
+cv2.imshow("rgb",rgb)
+cv2.waitKey(1000)
+cv2.imshow("gray",gray)
+cv2.waitKey(1000)
+cv2.imshow("hls",hls)
+cv2.waitKey(0)

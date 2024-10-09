@@ -1,0 +1,35 @@
+import cv2
+cam = cv2.VideoCapture(0)
+cv2.namedWindow("win")
+def noth(n):
+    pass
+cv2.createTrackbar("h","win",0,255,noth)
+cv2.createTrackbar("s","win",0,255,noth)
+cv2.createTrackbar("v","win",0,255,noth)
+cv2.createTrackbar("h_h","win",0,255,noth)
+cv2.createTrackbar("s_h","win",0,255,noth)
+cv2.createTrackbar("v_h","win",0,255,noth)
+cv2.createTrackbar("lGray","win",0,255,noth)
+cv2.createTrackbar("hGray","win",0,255,noth)
+while True:
+    frame = cam.read()[1]
+    h_l = cv2.getTrackbarPos("h","win")
+    s_l = cv2.getTrackbarPos("s","win")
+    v_l = cv2.getTrackbarPos("v","win")
+    h_h = cv2.getTrackbarPos("h_h","win")
+    s_h = cv2.getTrackbarPos("s_h","win")
+    v_h = cv2.getTrackbarPos("v_h","win")
+    l_g =  cv2.getTrackbarPos("lGray","win")
+    h_g =  cv2.getTrackbarPos("hGray","win")
+
+    gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+    mask_gray = cv2.inRange(gray,l_g,h_g)
+    low = (h_l,s_l,v_l)
+    top = (h_h,s_h,v_h)
+    # hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+    mask = cv2.inRange(cv2.cvtColor(frame,cv2.COLOR_BGR2HSV),low,top)
+    result = cv2.bitwise_and(frame,frame,mask=mask)
+    cv2.imshow("mask",mask)
+    cv2.imshow("win",result)
+    cv2.imshow("mask2",mask_gray)
+    cv2.waitKey(1)
